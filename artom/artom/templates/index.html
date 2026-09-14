@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Django + PostgreSQL 3D Viewer</title>
+<!--    <link rel="stylesheet" href="{% static 'viewer/css/style.css' %}" />-->
+</head>
+<body>
+    <header class="topbar">
+        <div>
+            <h1>3D Database Viewer</h1>
+            <p>Django + PostgreSQL + Three.js</p>
+        </div>
+    </header>
+
+    <main class="layout">
+        <aside class="sidebar">
+            <h2>Model Data Input</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div>
+                    <label for="name">Name</label>
+                    <input id="name" name="name" type="text" maxlength="200" required>
+                </div>
+
+                <div>
+                    <label for="width">Width</label>
+                    <input id="width" name="width" type="number" step="any" value="2.0" required>
+                </div>
+                <div>
+                    <label for="height">Height</label>
+                    <input id="height" name="height" type="number" step="any" value="2.0" required>
+                </div>
+                <div>
+                    <label for="depth">Depth</label>
+                    <input id="depth" name="depth" type="number" step="any" value="2.0" required>
+                </div>
+
+                <div>
+                    <label for="position_x">Position X</label>
+                    <input id="position_x" name="position_x" type="number" step="any" value="2.0" required>
+                </div>
+                <div>
+                    <label for="position_y">Position Y</label>
+                    <input id="position_y" name="position_y" type="number" step="any" value="2.0" required>
+                </div>
+                <div>
+                    <label for="position_z">Position Z</label>
+                    <input id="position_z" name="position_z" type="number" step="any" value="2.0" required>
+                </div>
+
+                <button type="submit">Save</button>
+            </form>
+
+            <hr />
+            <h2>Controls</h2>
+
+            <div class="control">
+                <span class="key">Drag</span>
+                <span>Move model</span>
+            </div>
+
+            <div class="control">
+                <span class="key">Ctrl + Drag</span>
+                <span>Rotate model</span>
+            </div>
+
+            <div class="control">
+                <span class="key">Wheel</span>
+                <span>Zoom</span>
+            </div>
+
+            <hr />
+
+            <h2>Selected Model</h2>
+            <div id="modelInfo" class="model-info">
+                Click a model to see its DB values.
+            </div>
+            <div id="modelList" class="model-list"></div>
+
+            <hr />
+
+        </aside>
+
+        <section id="viewerContainer" class="viewer-container">
+            <canvas id="threeCanvas" height="600px"></canvas>
+
+        </section>
+    </main>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+        }
+    }
+    </script>
+<!--    <script type="module" src="{% static 'viewer/js/viewer.js' %}"></script>-->
+    <script type="module" src="{% static 'viewer.js' %}"></script>
+</body>
+</html>
